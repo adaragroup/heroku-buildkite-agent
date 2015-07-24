@@ -187,9 +187,11 @@ else
     if [[ ! -z "${BUILDKITE_REPO_SSH_HOST:-}" ]]; then
       : ${BUILDKITE_SSH_DIRECTORY:="$HOME/.ssh"}
       : ${BUILDKITE_SSH_KNOWN_HOST_PATH:="$BUILDKITE_SSH_DIRECTORY/known_hosts"}
+      : ${BUILDKITE_SSH_PRIVATE_KEY_PATH:="$BUILDKITE_SSH_DIRECTORY/id_rsa"}
 
       # Ensure the known_hosts file exists
       mkdir -p $BUILDKITE_SSH_DIRECTORY
+      echo $BUILDKITE_SSH_PRIVATE_KEY | base64 --decode > $BUILDKITE_SSH_PRIVATE_KEY_PATH
       touch $BUILDKITE_SSH_KNOWN_HOST_PATH
 
       # Only add the output from ssh-keyscan if it doesn't already exist in the
