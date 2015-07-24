@@ -172,6 +172,7 @@ fi
 
 echo "~~~ Preparing build folder"
 
+buildkite-run "mkdir -p \"$HOME/vendor/bundle\""
 buildkite-run "mkdir -p \"$BUILDKITE_BUILD_CHECKOUT_PATH\""
 buildkite-run "cd \"$BUILDKITE_BUILD_CHECKOUT_PATH\""
 
@@ -248,6 +249,8 @@ buildkite-global-hook "post-checkout"
 
 # Now that we have a repo, we can perform a `post-checkout` local hook
 buildkite-local-hook "post-checkout"
+
+buildkite-run "ln -s $HOME/vendor/bundle vendor/bundle"
 
 # If the BUILDKITE_BUILD_CHECKOUT_PATH has been changed, log and switch to it
 if [[ "$PREVIOUS_BUILDKITE_BUILD_CHECKOUT_PATH" != "$BUILDKITE_BUILD_CHECKOUT_PATH" ]]; then
