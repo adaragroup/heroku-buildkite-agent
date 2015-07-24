@@ -11,9 +11,14 @@ This embeds buildkite-agent version 1.0-beta.30.516. To update simply extract th
 $ heroku create my-buildkite-agent \
                --buildpack https://github.com/ryandotsmith/null-buildpack.git
 
+# Add the required buildpacks
+$ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby
+$ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs
+
 # Put in your token and any metadata for targeting the agents
 $ heroku config:set BUILDKITE_AGENT_TOKEN=xxx \
-                    BUILDKITE_AGENT_META_DATA=key1=val2,key2=val2
+                    BUILDKITE_AGENT_META_DATA=key1=val2,key2=val2 \
+                    BUILDKITE_SSH_KEY=base64_encoded_private_ssh_key
 
 # :rocket:
 $ git push heroku master
